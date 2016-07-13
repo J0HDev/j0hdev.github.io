@@ -165,6 +165,72 @@
 
       <div class="body-wrap">
   
+    <article id="post-每日一算法（第四天）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/13/每日一算法（第四天）/" class="article-date">
+  	<time datetime="2016-07-13T09:39:02.000Z" itemprop="datePublished">2016-07-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/13/每日一算法（第四天）/">每日一算法（第四天）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>今天不纯是算法，还有数据结构。</p>
+<p>如果别人问你要一个QQ号，你不想直接给他，你告诉他一个加密的序列（比如: <code>6, 3, 1, 7, 5, 8, 9, 2, 0</code>），然后告诉他将第<code>1</code>个元素删除，把第<code>2</code>个元素移动到序列的末尾，然后把第<code>3</code>个元素删除，把第<code>4</code>个元素移动到序列的末尾，直到遇到最后一个元素，把它也删除，然后把这些删除的元素连在一起就是你要的QQ号。</p>
+<p>这样的需求你应该怎么做？按照死办法，就是初始化一个数组，初始化的元素就是上面的那些元素，然后开始删除第一个元素，怎么删？把第一个元素之后的所有元素的下标统统往前减一，那么这么做就非常费时了，如果用队列来做就会快许多。</p>
+<p>队列的实现就需要一个<code>head</code>、和一个<code>tail</code>两个变量来表示队列的首元素和末元素的下标，当需要删除一个元素时，只需要把<code>head++</code>即可，对于 <code>tail</code> 元素，要让它等于<code>末元素下标+1</code>，因为我们不想到最后让 <code>head == tail</code> 时队列中还剩下一个元素，我们判断队列为空的时才希望让<code>head == tail</code>。如果需要在末尾追加一个元素就只要让数组<code>tail</code>下标的那块区域添加上要追加的那个元素，然后把<code>tail++</code>，这样不管是删除还是追加的时间复杂度均为O(1)，效率非常高，但是浪费了一些空间，这就叫用空间换时间，上帝是不会让你十全十美的。</p>
+<p>Swift 版实现:</p>
+<p>首先创建一个结构体来表示一个队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Queue &#123;</span><br><span class="line">    var data: [Int]</span><br><span class="line">    var head: Int</span><br><span class="line">    var tail: Int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是具体的算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">func jailbrokenQQ() &#123;</span><br><span class="line">	//为了保证有足够的空间来换来换去这些元素，就预留了100个位置</span><br><span class="line">    var queue = Queue(data: [Int](count: 100, repeatedValue: 0), head: 0, tail: 0)</span><br><span class="line">    var data = [6, 3, 1, 7, 5, 8, 9, 2, 0]</span><br><span class="line">    </span><br><span class="line">    //把加密的QQ号码丢进队列里</span><br><span class="line">    for index in 0...data.count - 1 &#123;</span><br><span class="line">        queue.data[index] = data[index]</span><br><span class="line">        queue.tail += 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //根据解密的逻辑开始解密</span><br><span class="line">    while queue.head &lt; queue.tail &#123;</span><br><span class="line">        print(queue.data[queue.head])</span><br><span class="line">        queue.head += 1</span><br><span class="line">        queue.data[queue.tail] = queue.data[queue.head]</span><br><span class="line">        queue.tail += 1</span><br><span class="line">        queue.head += 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用合适的数据结构来实现同一个算法，会让效率大大增加。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-每日一算法（第三天）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
