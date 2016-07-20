@@ -182,7 +182,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/14/每日一算法（第五天）/">每日一算法（第五天）</a>
+      <a class="article-title" href="/2016/07/14/每日一算法（第五天）/">算法笔记（五）</a>
     </h1>
   
 
@@ -251,7 +251,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/13/每日一算法（第四天）/">每日一算法（第四天）</a>
+      <a class="article-title" href="/2016/07/13/每日一算法（第四天）/">算法笔记（四）</a>
     </h1>
   
 
@@ -317,7 +317,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/12/每日一算法（第三天）/">每日一算法（第三天）</a>
+      <a class="article-title" href="/2016/07/12/每日一算法（第三天）/">算法笔记（三）</a>
     </h1>
   
 
@@ -378,7 +378,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/11/每日一算法（第二天）/">每日一算法（第二天）</a>
+      <a class="article-title" href="/2016/07/11/每日一算法（第二天）/">算法笔记（二）</a>
     </h1>
   
 
@@ -438,7 +438,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/10/每日一算法（第一天）/">每日一算法（第一天）</a>
+      <a class="article-title" href="/2016/07/10/每日一算法（第一天）/">算法笔记（一）</a>
     </h1>
   
 
@@ -447,8 +447,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>开始放暑假了，我的每日计划之一就是每天学习一个算法，我这次用的书是比较通俗易懂的《啊哈！算法》这里一共有30多个算法，不出意外，我一个多月就能看完，我会把每次看完一个算法的心得和算法的 Swift 实现写在每一次的博客里。</p>
-<h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>这是一个非常简单的排序算法，思路是这样的，比如你有一堆的数需要排序，那么首先必须确认这些数的范围，比如[0,10]，那么你就需要11个变量来保存这些数出现的次数，为什么需要11个变量呢？因为在上述的范围中最大值只能是10，最小值只能是0，那你正好就需要11个变量（一个长度为11的数组）下标依次从<code>a[0] -&gt; a[10]</code>。比方这样一堆数：5 8 3 2 1 1 5 ，在这样一堆数中：5 和 1 出现了两次，其余的数各出现一次。刚才声明的那一个长度为11的数组可以想象成是一个个桶，在这些桶里保存的都是这个桶下标那个数所出现的次数，比如 5 出现了两次，那么在元素<code>a[5] = 2</code>，1也出现了两次 <code>a[1] = 2</code>，8 出现了一次，那么 <code>a[8] = 1</code>，最后把每一个元素不为0的下标输出，即为排序过后的顺序。</p>
+        <h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>这是一个非常简单的排序算法，思路是这样的，比如你有一堆的数需要排序，那么首先必须确认这些数的范围，比如[0,10]，那么你就需要11个变量来保存这些数出现的次数，为什么需要11个变量呢？因为在上述的范围中最大值只能是10，最小值只能是0，那你正好就需要11个变量（一个长度为11的数组）下标依次从<code>a[0] -&gt; a[10]</code>。比方这样一堆数：5 8 3 2 1 1 5 ，在这样一堆数中：5 和 1 出现了两次，其余的数各出现一次。刚才声明的那一个长度为11的数组可以想象成是一个个桶，在这些桶里保存的都是这个桶下标那个数所出现的次数，比如 5 出现了两次，那么在元素<code>a[5] = 2</code>，1也出现了两次 <code>a[1] = 2</code>，8 出现了一次，那么 <code>a[8] = 1</code>，最后把每一个元素不为0的下标输出，即为排序过后的顺序。</p>
 <p>Swift 版实现：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">func barrel()&#123;</span><br><span class="line">    </span><br><span class="line">    var input = [10,5,20,3,1,5,2,8] //乱序的数</span><br><span class="line">    var t = 0;</span><br><span class="line">    var a = [Int]() //桶</span><br><span class="line">	</span><br><span class="line">	//桶里每一个元素置0</span><br><span class="line">    for _ in 0...21 &#123;</span><br><span class="line">        a.append(0)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //遍历乱序的元素，元素出现一次就丢进桶里并计数</span><br><span class="line">    for i in 0...input.count - 1 &#123;</span><br><span class="line">        t = input[i]</span><br><span class="line">        a[t] += 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //输出</span><br><span class="line">    for index in 0...a.count - 1 &#123;</span><br><span class="line">        let count = a[index]</span><br><span class="line">        if count == 0 &#123;continue&#125;</span><br><span class="line">        for _ in 1...count &#123;</span><br><span class="line">            print(index)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个算法的缺点在于，如果乱序的元素范围够大，那么你就需要更多的变量（桶）来存放元素出现的顺序，这对空间非常浪费，而且如果要排序的元素是小数，那就更头疼了，但如果范围不大，这个算法的时间复杂度非常快  <code>O(M+N)</code>。</p>
