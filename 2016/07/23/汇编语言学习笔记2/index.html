@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>汇编语言学习笔记（2） | J0hnnny&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第三章主要讲了四大块内容
+
+把数据从寄存器写到内存或者从内存写到寄存器
+一个字该如何传送
+数据段的概念
+栈
+
+CPU如果要读写一段内存，那么必须要给出这段内存的地址，8086CPU的地址总线有20位，但是它本身却是一个16位的CPU，所以不可能一口气给出一个20位的地址出来，所以必须通过两个16位的地址来计算出一个20位的地址来输送到20位的地址总线，计算的方式是 段地址 x 16 + 偏移地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言学习笔记（2）">
+<meta property="og:url" content="http://yoursite.com/2016/07/23/汇编语言学习笔记2/index.html">
+<meta property="og:site_name" content="J0hnnny's blog">
+<meta property="og:description" content="第三章主要讲了四大块内容
+
+把数据从寄存器写到内存或者从内存写到寄存器
+一个字该如何传送
+数据段的概念
+栈
+
+CPU如果要读写一段内存，那么必须要给出这段内存的地址，8086CPU的地址总线有20位，但是它本身却是一个16位的CPU，所以不可能一口气给出一个20位的地址出来，所以必须通过两个16位的地址来计算出一个20位的地址来输送到20位的地址总线，计算的方式是 段地址 x 16 + 偏移地址">
+<meta property="og:updated_time" content="2016-07-23T08:15:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言学习笔记（2）">
+<meta name="twitter:description" content="第三章主要讲了四大块内容
+
+把数据从寄存器写到内存或者从内存写到寄存器
+一个字该如何传送
+数据段的概念
+栈
+
+CPU如果要读写一段内存，那么必须要给出这段内存的地址，8086CPU的地址总线有20位，但是它本身却是一个16位的CPU，所以不可能一口气给出一个20位的地址出来，所以必须通过两个16位的地址来计算出一个20位的地址来输送到20位的地址总线，计算的方式是 段地址 x 16 + 偏移地址">
+  
+    <link rel="alternative" href="/atom.xml" title="J0hnnny&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://ww3.sinaimg.cn/large/5dd70eb5jw8esyss3o3wxg20c80c80u9.gif" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">J0hnnny</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="/j0hdev" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/jcack" title="weibo">weibo</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/学习笔记-汇编语言/" style="font-size: 10px;">学习笔记 汇编语言</a> <a href="/tags/汇编语言-学习笔记/" style="font-size: 10px;">汇编语言,学习笔记</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">在读学生，追求完美的开发水平，对美的事物充满好奇和兴趣。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">J0hnnny</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://ww3.sinaimg.cn/large/5dd70eb5jw8esyss3o3wxg20c80c80u9.gif" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">J0hnnny</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="/j0hdev" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/jcack" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-汇编语言学习笔记2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/23/汇编语言学习笔记2/" class="article-date">
+  	<time datetime="2016-07-23T03:32:58.000Z" itemprop="datePublished">2016-07-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      汇编语言学习笔记（2）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/汇编语言-学习笔记/">汇编语言,学习笔记</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第三章主要讲了四大块内容</p>
+<ul>
+<li>把数据从寄存器写到内存或者从内存写到寄存器</li>
+<li>一个字该如何传送</li>
+<li>数据段的概念</li>
+<li>栈</li>
+</ul>
+<p>CPU如果要读写一段内存，那么必须要给出这段内存的地址，8086CPU的地址总线有20位，但是它本身却是一个16位的CPU，所以不可能一口气给出一个20位的地址出来，所以必须通过两个16位的地址来计算出一个20位的地址来输送到20位的地址总线，计算的方式是 <em>段地址 x 16 + 偏移地址</em> 所以一般来说，你要访问一块内存，需要给一个叫 DS 的寄存器赋值，这个寄存器里的值是你要访问的这段内存的段地址，比如要把内存地址为 10000H 的内容拿出来，保存到寄存器 AL (AX 寄存器的低8位寄存器) 里，就可以这么写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H ;段地址</span><br><span class="line">mov ds, bx</span><br><span class="line">mov al, [0] ;偏移量为0，计算出内存地址为 10000H</span><br></pre></td></tr></table></figure>
+<p>当执行到 <code>mov al, [0]</code> 这行代码的时候，CPU就知道这是在取某块内存的值，CPU就会跑到 DS 寄存器中去拿段地址，然后根据这个偏移量合成真实的物理地址，取值，赋值。</p>
+<p>当然也可以把寄存器里的值丢到内存中去，如果是这样的话，可以这么写 <code>mov [0], al</code></p>
+<h2 id="关于字"><a href="#关于字" class="headerlink" title="关于字"></a>关于字</h2><p>一个字就是两个字节，也就是16个位，像 AX 这样的寄存器，本身就是16位的，本身就可以保存一个字的大小，为了兼容之前的8位CPU，所以才会有 AH AL 这样的高位低位寄存器。在内存中，一个字就占用两个内存单元，因为一个内存单元只能保存一个字节，两个字节才能当做一个字，所以会占两个单元。在内存中保存时，会有高低位之分，高位的部分会存在高地址单元，低位的部分会存在低地址单元，如果把一段内存看做是一个从左往右的方格的话，左边是低地址单元，右边这个是高地址单元。如果看成从上往下的话，上面这个单元就是低地址单元，下面才是高地址单元。</p>
+<p>比如,把十进制的 20000(4e20) 放进内存的话，在内存中就会这样存放：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|-------------------------|</span><br><span class="line">|       0    |    1       |</span><br><span class="line">|------------|------------|</span><br><span class="line">|       20   |    4e      |</span><br><span class="line">|-------------------------|</span><br></pre></td></tr></table></figure>
+<p>内存单元0是低地址单元，所以存放低位的20，内存单元1是高地址单元锁存存放高位的4e。</p>
+<p>将地址为 N 的字单元简称为 N 地址单元，比如刚才这个单元，由 0、1两个内存单元组成，这个字单元的起始地址是0，就可以叫做 0地址单元。</p>
+<h2 id="如何存取一个字"><a href="#如何存取一个字" class="headerlink" title="如何存取一个字"></a>如何存取一个字</h2><p>其实很简单，那刚才的代码为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H</span><br><span class="line">mov ds, bx</span><br><span class="line">mov al, [0]</span><br></pre></td></tr></table></figure>
+<p>最后一行 <code>mov al, [0]</code> 可以看到这是 AX 寄存器的低位寄存器，只要把 AL 换成 AX CPU 就知道你要传输的是一个字的数据了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H</span><br><span class="line">mov ds, bx</span><br><span class="line">mov ax, [0]</span><br></pre></td></tr></table></figure>
+<h2 id="数据段"><a href="#数据段" class="headerlink" title="数据段"></a>数据段</h2><p>我们可以把一组内存单元定义成一个段来使用，这个段的地址必须是连续的，不然不可能是一个段，而且它的起始地址肯定是 16 的倍数，由于一个段的偏移量最小为0，最大为 ffff （16位），所以它的最大长度只能是 64KB。</p>
+<p>数据段只是在编程时候的一种安排，CPU并不知道这一点，其实在使用数据段的时候就和刚才访问内存一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 123BH</span><br><span class="line">mov ds, ax</span><br><span class="line">moc ax, 0</span><br><span class="line">add ax, [0]</span><br><span class="line">add ax, [2]</span><br><span class="line">add ax, [4]</span><br></pre></td></tr></table></figure>
+<p>上面的代码是把 123b0 ~ 123b4 这段内存中的值累加到寄存器 AX 中。需要注意的是，不能直接把值赋给 DS 寄存器，就像这样 <code>mov ds, 123BH</code>，这样是非法的，只能用一个寄存器来做中转。</p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈本身就是一个先进后出的数据结构，在学数据结构的时候就已经了解它了。CPU也提供这种机制，CPU提供了 <code>PUSH</code> <code>POP</code> 这两个指令来把一段内存当做栈使用，CPU 是怎么知道你执行 <code>PUSH</code> <code>POP</code> 是把哪一段内存当做栈呢？在使用栈的时候，肯定需要一个指向栈顶的指针，这个指针在哪里？在 CPU 内部有一个寄存器 SS 和一个偏移寄存器 SP，这俩寄存器合成的物理地址指向栈顶。通常在 SS 寄存器中保存你要当做栈的那段地址的段地址，SP 中则保存偏移地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 1000H</span><br><span class="line">mov ss, ax</span><br><span class="line">mov sp, 0010H ; *</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">push ds</span><br></pre></td></tr></table></figure>
+<p>这段代码可以把 AX BX DS 中的值分别压栈到 段为1000H 的内存中。注释中有 * 的这行代码有必要解释下，一般情况下，一个空栈的栈顶指针指向栈内最后一个单元的下面一个，实际上栈的入栈和出栈都是以字为单位的，所以每一次 <code>PUSH</code> <code>POP</code> 的时候 SP 实际上是 <code>SP = SP + 2</code> OR <code>SP = SP - 2</code>。假设我们把 10000 ~ 1000F 这段内存当栈来使用，当这个栈只剩一个元素的时候，SP 指向的是 1000E 这里，那么要把栈清空，就必须把当前这个元素出栈，那么执行 <code>POP</code> 之后， <code>SP = SP + 2</code> 1000E + 2 等于 10010，所以当栈为空栈的时候，一定不是指向最后一个单元，而是指向最后一个单元下面的一个单元。</p>
+<p>要注意的是，8086CPU 不会检查栈顶超界，所以需要我们自己注意。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/14/每日一算法（第五天）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法笔记（五）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="汇编语言学习笔记2" data-title="汇编语言学习笔记（2）" data-url="http://yoursite.com/2016/07/23/汇编语言学习笔记2/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 J0hnnny
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
