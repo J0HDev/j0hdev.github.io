@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>汇编语言学习笔记3 | J0hnnny&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。
+由于书本上的编译方式在 Windows10 上不太好用，所以我自己找了一个其他的方法，基本和书上差不多，也是使用 MASM 来编译。顺便说一下 MASM 是微软公司的汇编器。
+首先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言学习笔记3">
+<meta property="og:url" content="http://yoursite.com/2016/07/24/汇编语言学习笔记3/index.html">
+<meta property="og:site_name" content="J0hnnny's blog">
+<meta property="og:description" content="之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。
+由于书本上的编译方式在 Windows10 上不太好用，所以我自己找了一个其他的方法，基本和书上差不多，也是使用 MASM 来编译。顺便说一下 MASM 是微软公司的汇编器。
+首先">
+<meta property="og:updated_time" content="2016-07-24T06:35:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汇编语言学习笔记3">
+<meta name="twitter:description" content="之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。
+由于书本上的编译方式在 Windows10 上不太好用，所以我自己找了一个其他的方法，基本和书上差不多，也是使用 MASM 来编译。顺便说一下 MASM 是微软公司的汇编器。
+首先">
+  
+    <link rel="alternate" href="/atom.xml" title="J0hnnny&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">J0hnnny&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-汇编语言学习笔记3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/24/汇编语言学习笔记3/" class="article-date">
+  <time datetime="2016-07-24T06:18:03.000Z" itemprop="datePublished">2016-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      汇编语言学习笔记3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。</p>
+<p>由于书本上的编译方式在 Windows10 上不太好用，所以我自己找了一个其他的方法，基本和书上差不多，也是使用 MASM 来编译。顺便说一下 MASM 是微软公司的汇编器。</p>
+<p>首先在 <a href="masm32.com">这个网站</a> 下载 MASM 的 SDK，里面包含了编译器、连接器和一个文本编辑器，但它貌似只能编译32位的程序，这个无所谓了。然后一路点击安装，傻瓜式的安装器。（PS：加入是 Windows10 的操作系统，它默认会有一个杀毒软件，会自动把一些必要文件删除，导致安装失败，所以安装的时候把那个该死的杀毒软件关掉）</p>
+<p>在编辑器里其实有编译和连接甚至有直接运行的按钮，点击即可，但是我点了编译却找不到编译后的文件，所以我还是通过命令行的方式手动编译了我的测试代码。</p>
+<h2 id="编译方法"><a href="#编译方法" class="headerlink" title="编译方法"></a>编译方法</h2><p>如果希望方便一点，可以在系统的环境变量里配置一下，编译器和连接器都在安装目录下 <code>bin\</code> 文件夹下。</p>
+<p>具体的配置流程：</p>
+<ul>
+<li>右击此电脑 —— 属性 —— 高级系统设置 —— 环境变量</li>
+<li>在系统变量那一栏找到 Path 点击编辑，Windows10 和之前的都不一样了，可以点右边一排按钮的新建，在最底下把路径加进去(D:\masm32\bin)</li>
+</ul>
+<p>这样一来，可以直接打开编译器程序了。</p>
+<p>进入汇编源程序的目录，比如 D:\assembly</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd D:\assembly</span><br><span class="line">ml \c first.asm</span><br></pre></td></tr></table></figure>
+<p>然后就会在目录下生成一个.obj文件，然后用链接器链接这个文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">link16 first.obj</span><br></pre></td></tr></table></figure>
+<p>然后它会让你输入 Run File、List File、Libraries、Definitions File 可以直接按回车使用默认就行了。</p>
+<p>然后目录下就会出现 first.exe 这个可执行文件了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/24/汇编语言学习笔记3/" data-id="cir0eiub6000dmanpix6ow753" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/汇编语言/">汇编语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/23/汇编语言学习笔记2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">汇编语言学习笔记（2）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编语言/">汇编语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/汇编语言/" style="font-size: 15px;">汇编语言</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/24/汇编语言学习笔记3/">汇编语言学习笔记3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/23/汇编语言学习笔记2/">汇编语言学习笔记（2）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/14/每日一算法（第五天）/">算法笔记（五）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/13/每日一算法（第四天）/">算法笔记（四）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/12/每日一算法（第三天）/">算法笔记（三）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 J0hnnny<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>算法笔记（五） | J0hnnny&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="栈栈是一种先进后出的数据结构，很简单就不细说了。今天是用栈来实现判断是否是回文串的算法。思路是这样的，把字符串的一半压栈，然后出栈一个字符和另一半的第一个字符对比，如果一样，就把栈指针减一，否则跳出循环。如果最终栈指针为0，则它是回文串，否则不是。
+Swift 版实现：
+我自己写了一个精简修改版的栈，这里为了让栈指针在比对后减一，所以在出栈的方法中没有让它减一。
+首先是栈的实现
+123456789">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记（五）">
+<meta property="og:url" content="http://yoursite.com/2016/07/14/每日一算法（第五天）/index.html">
+<meta property="og:site_name" content="J0hnnny's blog">
+<meta property="og:description" content="栈栈是一种先进后出的数据结构，很简单就不细说了。今天是用栈来实现判断是否是回文串的算法。思路是这样的，把字符串的一半压栈，然后出栈一个字符和另一半的第一个字符对比，如果一样，就把栈指针减一，否则跳出循环。如果最终栈指针为0，则它是回文串，否则不是。
+Swift 版实现：
+我自己写了一个精简修改版的栈，这里为了让栈指针在比对后减一，所以在出栈的方法中没有让它减一。
+首先是栈的实现
+123456789">
+<meta property="og:updated_time" content="2016-07-20T02:25:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法笔记（五）">
+<meta name="twitter:description" content="栈栈是一种先进后出的数据结构，很简单就不细说了。今天是用栈来实现判断是否是回文串的算法。思路是这样的，把字符串的一半压栈，然后出栈一个字符和另一半的第一个字符对比，如果一样，就把栈指针减一，否则跳出循环。如果最终栈指针为0，则它是回文串，否则不是。
+Swift 版实现：
+我自己写了一个精简修改版的栈，这里为了让栈指针在比对后减一，所以在出栈的方法中没有让它减一。
+首先是栈的实现
+123456789">
+  
+    <link rel="alternate" href="/atom.xml" title="J0hnnny&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">J0hnnny&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-每日一算法（第五天）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/14/每日一算法（第五天）/" class="article-date">
+  <time datetime="2016-07-14T10:22:26.000Z" itemprop="datePublished">2016-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法笔记（五）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈是一种先进后出的数据结构，很简单就不细说了。今天是用栈来实现判断是否是回文串的算法。思路是这样的，把字符串的一半压栈，然后出栈一个字符和另一半的第一个字符对比，如果一样，就把栈指针减一，否则跳出循环。如果最终栈指针为0，则它是回文串，否则不是。</p>
+<p>Swift 版实现：</p>
+<p>我自己写了一个精简修改版的栈，这里为了让栈指针在比对后减一，所以在出栈的方法中没有让它减一。</p>
+<p>首先是栈的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct Stack &lt;T&gt; &#123;</span><br><span class="line">    var data = [T]()</span><br><span class="line">    var top = 0</span><br><span class="line">    mutating func push(value value: T)&#123;</span><br><span class="line">        data.append(value)</span><br><span class="line">        top += 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func pop() -&gt; T &#123;</span><br><span class="line">        return data.removeLast()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现了一个支持泛型的栈，Just for fun ^_^</p>
+<p>Swift 的 <code>String</code> 类型有一个坑爹的地方，就是不能通过下标来获取某一个字符，还有，它没有 <code>length</code> 属性，所以我先写了一个扩展来让它具备这样的功能，方便一会写算法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">extension String &#123;</span><br><span class="line">    subscript(range: Range&lt;Int&gt;) -&gt; String &#123;</span><br><span class="line">        get&#123;</span><br><span class="line">            let startIndex = self.startIndex.advancedBy(range.startIndex)</span><br><span class="line">            let endIndex = self.startIndex.advancedBy(range.endIndex)</span><br><span class="line">            return self[startIndex..&lt;endIndex]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    subscript(index: Int) -&gt; String &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            let startIndex = self.startIndex.advancedBy(index)</span><br><span class="line">            let endIndex = self.startIndex.advancedBy(index + 1)</span><br><span class="line">            return self[startIndex ..&lt; endIndex]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var length: Int &#123; return (self as NSString).length &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在 <code>String</code> 已经可以实现通过下标的方式来取一个字符串，和通过一段范围来截取一段字符串了。</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;abcdef&quot;</span><br><span class="line">str[1] // b</span><br><span class="line">str[1..&lt;3] //bc</span><br><span class="line">str[1...3] //bcd</span><br></pre></td></tr></table></figure>
+<p>算法很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">func isPalindromic() &#123;</span><br><span class="line">    let str = &quot;ahaha&quot;</span><br><span class="line">    let mid = str.length / 2 - 1</span><br><span class="line">    var stack = Stack&lt;String&gt;()</span><br><span class="line">    var next = 0</span><br><span class="line">    </span><br><span class="line">    for index in 0...mid &#123;</span><br><span class="line">        stack.push(value: str[index])</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (str.length % 2 == 0) &#123;</span><br><span class="line">        next = mid + 1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        next = mid + 2</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for index in next...str.length - 1 &#123;</span><br><span class="line">        if (stack.pop() != str[index]) &#123;</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">        stack.top -= 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (stack.top == 0) &#123;</span><br><span class="line">        print(&quot;是回文串&quot;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        print(&quot;不是回文串&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/14/每日一算法（第五天）/" data-id="cir0eiuah0004manpda82vzmr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/23/汇编语言学习笔记2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          汇编语言学习笔记（2）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/13/每日一算法（第四天）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法笔记（四）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编语言/">汇编语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/汇编语言/" style="font-size: 15px;">汇编语言</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/24/汇编语言学习笔记3/">汇编语言学习笔记3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/23/汇编语言学习笔记2/">汇编语言学习笔记（2）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/14/每日一算法（第五天）/">算法笔记（五）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/13/每日一算法（第四天）/">算法笔记（四）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/12/每日一算法（第三天）/">算法笔记（三）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 J0hnnny<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

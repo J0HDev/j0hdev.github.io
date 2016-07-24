@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>算法笔记（三） | J0hnnny&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="快速排序这是一个比昨天的冒泡排序快一点的排序算法，它的思路是这样的：在一个无序的序列中随便寻找一个基准值，一般选择序列的第一个元素，根据这个基准值，把基准值左边比基准值大的统统移到它的右边，把它的右边比它小的统统移到左边，那么这样一来，基准值的左边都是比它小的，右边呢都是比它大的。这样子的一轮就称他为基准值归位（因为一轮完毕以后基准值肯定是在中间），一轮完毕后基准值就把这一串序列分为了左右两串子序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记（三）">
+<meta property="og:url" content="http://yoursite.com/2016/07/12/每日一算法（第三天）/index.html">
+<meta property="og:site_name" content="J0hnnny's blog">
+<meta property="og:description" content="快速排序这是一个比昨天的冒泡排序快一点的排序算法，它的思路是这样的：在一个无序的序列中随便寻找一个基准值，一般选择序列的第一个元素，根据这个基准值，把基准值左边比基准值大的统统移到它的右边，把它的右边比它小的统统移到左边，那么这样一来，基准值的左边都是比它小的，右边呢都是比它大的。这样子的一轮就称他为基准值归位（因为一轮完毕以后基准值肯定是在中间），一轮完毕后基准值就把这一串序列分为了左右两串子序">
+<meta property="og:updated_time" content="2016-07-20T02:25:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法笔记（三）">
+<meta name="twitter:description" content="快速排序这是一个比昨天的冒泡排序快一点的排序算法，它的思路是这样的：在一个无序的序列中随便寻找一个基准值，一般选择序列的第一个元素，根据这个基准值，把基准值左边比基准值大的统统移到它的右边，把它的右边比它小的统统移到左边，那么这样一来，基准值的左边都是比它小的，右边呢都是比它大的。这样子的一轮就称他为基准值归位（因为一轮完毕以后基准值肯定是在中间），一轮完毕后基准值就把这一串序列分为了左右两串子序">
+  
+    <link rel="alternate" href="/atom.xml" title="J0hnnny&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">J0hnnny&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-每日一算法（第三天）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/12/每日一算法（第三天）/" class="article-date">
+  <time datetime="2016-07-12T08:40:41.000Z" itemprop="datePublished">2016-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法笔记（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>这是一个比昨天的冒泡排序快一点的排序算法，它的思路是这样的：在一个无序的序列中随便寻找一个基准值，一般选择序列的第一个元素，根据这个基准值，把基准值左边比基准值大的统统移到它的右边，把它的右边比它小的统统移到左边，那么这样一来，基准值的左边都是比它小的，右边呢都是比它大的。这样子的一轮就称他为基准值归位（因为一轮完毕以后基准值肯定是在中间），一轮完毕后基准值就把这一串序列分为了左右两串子序列，对于左右两串子序列，我们还可以继续找基准值，继续让大的移右边，小的移左边，所有基准归位完毕后，这串序列就排序完成了。</p>
+<p>至于怎么把小于基准的值移左边，大于基准的值移右边，我们可以采用交换的方法，使用两个指针分别指向序列中第一个元素和最后一个元素，然后让两个指针相向移动，<em>但是必须让尾指针先移动，因为基准是第一个元素</em>，尾指针（指向最后一个元素）遇到比基准<code>小</code>的元素就暂时停止移动，等到头指针遇到了一个比基准<code>大</code>的元素，也暂时停止移动，让两个指针指向的元素互换，然后继续移动，继续和上面说明的操作步骤一样进行，当头尾指针相遇时，就说明一轮已经结束了（第一个序列的基准已经归位），然后继续递归做后续序列基准的归位。</p>
+<p>Swift 实现（这个算法比较复杂，所以注释特别多）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">var array = [6,1,2,7,9,3,4,5,10,8]</span><br><span class="line"></span><br><span class="line">func quickSort(left left: Int, right: Int)&#123;</span><br><span class="line">    </span><br><span class="line">    //如果 left 大于 right 说明排序已经完成，递归结束</span><br><span class="line">    if (left &gt; right) &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var i = left //指向第一个元素</span><br><span class="line">    var j = right //指向第二个元素</span><br><span class="line">    let temp = array[left] //存放基准数</span><br><span class="line">    var t = 0 //交换时临时存放</span><br><span class="line">    </span><br><span class="line">    //i 不等于 j 说明这两个指针还没有碰头</span><br><span class="line">    while i != j &#123;</span><br><span class="line">        </span><br><span class="line">        //如果基准数右边的数大于基准数，就说明符合要求，不需要交换，所以指针继续往前面移动，i 如果大于 j 说明已经碰头了</span><br><span class="line">        while array[j] &gt;= temp &amp;&amp; i &lt; j  &#123;</span><br><span class="line">            j -= 1</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //如果基准数左边的数小于基准数，就说明符合要求，不需要交换。所以指针继续往后面移动，.....</span><br><span class="line">        while array[i] &lt;= temp &amp;&amp; i &lt; j &#123;</span><br><span class="line">            i += 1</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //前面的搜索都找到了不符合要求（即基准右边小于基准，基准左边大于基准），并且 i 和 j 没有碰头，就开始交换 i 和 j 所指向的两个元素</span><br><span class="line">        if (i &lt; j) &#123;</span><br><span class="line">            t = array[i]</span><br><span class="line">            array[i] = array[j]</span><br><span class="line">            array[j] = t</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //出了大的 while 循环，肯定就代表 i == j，意味着碰头了，那么一轮匹配就结束了</span><br><span class="line">    array[left] = array[i]</span><br><span class="line">    array[i] = temp</span><br><span class="line">    </span><br><span class="line">    //继续把上一个基准分割的两个序列和刚才一样操作，所以就要用递归来搞定</span><br><span class="line">    </span><br><span class="line">    //对于左边的子序列，头指针肯定还是left，也就是第0个元素的位置，尾指针则是刚才基准数那个位置的前面一个位置</span><br><span class="line">    quickSort(left: left, right: i - 1)</span><br><span class="line">    </span><br><span class="line">    //对于右边的子序列，头指针是刚才基准数那个位置的后面一个位置，而尾指针肯定还是right，也就是最后一个元素的位置</span><br><span class="line">    quickSort(left: i + 1, right: right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">quickSort(left: 0, right: array.count - 1)</span><br><span class="line"></span><br><span class="line">print(array)</span><br></pre></td></tr></table></figure>
+<p>快速排序的平均时间复杂度为 O(NlogN)，在最差的情况下和冒泡一样达到 O(N^2)，但还是比冒泡好多了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/12/每日一算法（第三天）/" data-id="cir0eiua60001manp5qehgge2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/13/每日一算法（第四天）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          算法笔记（四）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/11/每日一算法（第二天）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法笔记（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/汇编语言/">汇编语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/汇编语言/" style="font-size: 15px;">汇编语言</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/24/汇编语言学习笔记3/">汇编语言学习笔记3</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/23/汇编语言学习笔记2/">汇编语言学习笔记（2）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/14/每日一算法（第五天）/">算法笔记（五）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/13/每日一算法（第四天）/">算法笔记（四）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/12/每日一算法（第三天）/">算法笔记（三）</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 J0hnnny<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
