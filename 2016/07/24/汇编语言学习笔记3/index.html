@@ -98,7 +98,7 @@
 <meta property="og:description" content="之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。
 由于书本上的编译方式在 Windows10 上不太好用，所以我自己找了一个其他的方法，基本和书上差不多，也是使用 MASM 来编译。顺便说一下 MASM 是微软公司的汇编器。
 首先">
-<meta property="og:updated_time" content="2016-07-24T06:35:56.000Z">
+<meta property="og:updated_time" content="2016-07-25T08:00:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="汇编语言学习笔记3">
 <meta name="twitter:description" content="之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。
@@ -315,11 +315,16 @@
 </ul>
 <p>这样一来，可以直接打开编译器程序了。</p>
 <p>进入汇编源程序的目录，比如 D:\assembly</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd D:\assembly</span><br><span class="line">ml \c first.asm</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd D:\assembly</span><br><span class="line">&gt; ml \c first.asm</span><br></pre></td></tr></table></figure>
 <p>然后就会在目录下生成一个.obj文件，然后用链接器链接这个文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">link16 first.obj</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; link16 first.obj</span><br></pre></td></tr></table></figure>
 <p>然后它会让你输入 Run File、List File、Libraries、Definitions File 可以直接按回车使用默认就行了。</p>
 <p>然后目录下就会出现 first.exe 这个可执行文件了。</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>这是一个 32 位编译的程序，直接在 64 位的 Windows10 （我的系统）上是跑不起来的，所以可以继续用到 DosBox 这个神器，在使用的时候要先把你刚才编译文件的目录挂载为一个盘，我把它挂载为 D:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; mount d d:\</span><br><span class="line">&gt; d:</span><br></pre></td></tr></table></figure>
+<p>这样就可以进入刚才编译好可执行程序的那个目录下运行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd ASSEMBLY</span><br><span class="line">&gt; first</span><br></pre></td></tr></table></figure>
+<p>大功告成~</p>
 
       
     </div>
@@ -495,7 +500,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译方法"><span class="nav-number">1.</span> <span class="nav-text">编译方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译方法"><span class="nav-number">1.</span> <span class="nav-text">编译方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a></li></ol></div>
             
           </div>
         </section>
