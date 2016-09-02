@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -86,15 +86,22 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="J0hnnny's blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="读完这篇文章你可以自己写一个 YYModel 这样的神器，这篇文章类似一个源码解析，但不同的是，它不光光是解析，更是实战，因为我觉得学习一个东西必须要自己写一遍才算是真的学了一遍，否则即便是读完了源码印象还是不会太深刻，so，开始吧。
+注：为了简单起见，我的例子只是实现了一个精简的版本，YYModel 有很多功能，我这里就实现了一个核心的功能，JSON -&amp;gt; Model。
+注：文章的最后有完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手把手带你撸一个 YYModel 的精简版">
+<meta property="og:url" content="http://yoursite.com/2016/09/02/手把手带你撸一个-YYModel-的精简版/index.html">
 <meta property="og:site_name" content="J0hnnny's blog">
-<meta property="og:description">
+<meta property="og:description" content="读完这篇文章你可以自己写一个 YYModel 这样的神器，这篇文章类似一个源码解析，但不同的是，它不光光是解析，更是实战，因为我觉得学习一个东西必须要自己写一遍才算是真的学了一遍，否则即便是读完了源码印象还是不会太深刻，so，开始吧。
+注：为了简单起见，我的例子只是实现了一个精简的版本，YYModel 有很多功能，我这里就实现了一个核心的功能，JSON -&amp;gt; Model。
+注：文章的最后有完">
+<meta property="og:updated_time" content="2016-09-02T07:09:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="J0hnnny's blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="手把手带你撸一个 YYModel 的精简版">
+<meta name="twitter:description" content="读完这篇文章你可以自己写一个 YYModel 这样的神器，这篇文章类似一个源码解析，但不同的是，它不光光是解析，更是实战，因为我觉得学习一个东西必须要自己写一遍才算是真的学了一遍，否则即便是读完了源码印象还是不会太深刻，so，开始吧。
+注：为了简单起见，我的例子只是实现了一个精简的版本，YYModel 有很多功能，我这里就实现了一个核心的功能，JSON -&amp;gt; Model。
+注：文章的最后有完">
 
 
 
@@ -115,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/02/手把手带你撸一个-YYModel-的精简版/"/>
 
-  <title> J0hnnny's blog </title>
+  <title> 手把手带你撸一个 YYModel 的精简版 | J0hnnny's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -148,9 +155,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,9 +232,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -249,10 +254,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/09/02/手把手带你撸一个-YYModel-的精简版/" itemprop="url">
-                  手把手带你撸一个 YYModel 的精简版
-                </a>
+                手把手带你撸一个 YYModel 的精简版
               
             
           </h1>
@@ -299,9 +301,7 @@
       
 
       
-        
-          
-            <p>读完这篇文章你可以自己写一个 YYModel 这样的神器，这篇文章类似一个源码解析，但不同的是，它不光光是解析，更是实战，因为我觉得学习一个东西必须要自己写一遍才算是真的学了一遍，否则即便是读完了源码印象还是不会太深刻，so，开始吧。</p>
+        <p>读完这篇文章你可以自己写一个 YYModel 这样的神器，这篇文章类似一个源码解析，但不同的是，它不光光是解析，更是实战，因为我觉得学习一个东西必须要自己写一遍才算是真的学了一遍，否则即便是读完了源码印象还是不会太深刻，so，开始吧。</p>
 <p><em>注：为了简单起见，我的例子只是实现了一个精简的版本，YYModel 有很多功能，我这里就实现了一个核心的功能，<code>JSON -&gt; Model</code>。</em></p>
 <p><em>注：文章的最后有完整的代码</em></p>
 <h2 id="从JSON映射到Model的原理"><a href="#从JSON映射到Model的原理" class="headerlink" title="从JSON映射到Model的原理"></a>从JSON映射到Model的原理</h2><p>想一下平时我们是怎么使用类似这样子的库的，当我们有一个JSON的时候，我们把所有JSON的字段（比如name、page）全部写成对应的类中的属性。然后库会自动把你JSON对应字段的值赋值到这些对应的属性里去。属性我们用 <code>@property</code> 来定义，就意味着编译器会帮你生成对应的<code>get``set</code>方法，我们使用的 <code>.</code> 其实也是在调用<code>get``set</code>方法来实现赋值的。在 Objective-C 中有一个著名的函数 <code>objc_msgSend(...)</code> 我们所有的类似 <code>[obj method]</code> 的方法调用（发送消息）都会被转换成 <code>objc_msgSend(...)</code> 的方式来调用。（具体这个函数怎么用后面再说）</p>
@@ -460,1077 +460,59 @@
 <h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>如果你自己亲自动手写完了这个精简版的 YYMode ，你再去看完整版的会容易很多，我写的这篇文章是把我从读 YYModel 源码中学到的一些有用的东西分享给大家，如有什么写错的地方，欢迎指正。</p>
 <h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><p>点击<a href="https://github.com/J0HDev/CPModel" target="_blank" rel="external">这里</a></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/12/inline-attribute-always-inline-的意思/" itemprop="url">
-                  __inline__ __attribute__((always_inline)) 的意思
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T15:43:25+08:00" content="2016-08-12">
-              2016-08-12
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/12/inline-attribute-always-inline-的意思/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/12/inline-attribute-always-inline-的意思/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+              <a href="/2016/08/12/inline-attribute-always-inline-的意思/" rel="next" title="__inline__ __attribute__((always_inline)) 的意思">
+                <i class="fa fa-chevron-left"></i> __inline__ __attribute__((always_inline)) 的意思
+              </a>
             
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-              
-                
-                <a class="post-title-link" href="/2016/07/24/汇编语言学习笔记3/" itemprop="url">
-                  汇编语言学习笔记3
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-24T14:18:03+08:00" content="2016-07-24">
-              2016-07-24
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/24/汇编语言学习笔记3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/汇编语言学习笔记3/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>之前写的汇编全都是通过DEBUG这个程序来完成的，对于一些几行代码的程序用它完全没问题，但是要写规模稍微大一些的就不能这样了，而是采用传统的方式，用文本编辑器写汇编代码，用汇编编译器和连接器来完成编译的工作，最后运行。</p>
-<p>由于书本上的编译方式在 Windows10 上不太好用，所以我自己找了一个其他的方法，基本和书上差不多，也是使用 MASM 来编译。顺便说一下 MASM 是微软公司的汇编器。</p>
-<p>首先在 <a href="masm32.com">这个网站</a> 下载 MASM 的 SDK，里面包含了编译器、连接器和一个文本编辑器，但它貌似只能编译32位的程序，这个无所谓了。然后一路点击安装，傻瓜式的安装器。（PS：加入是 Windows10 的操作系统，它默认会有一个杀毒软件，会自动把一些必要文件删除，导致安装失败，所以安装的时候把那个该死的杀毒软件关掉）</p>
-<p>在编辑器里其实有编译和连接甚至有直接运行的按钮，点击即可，但是我点了编译却找不到编译后的文件，所以我还是通过命令行的方式手动编译了我的测试代码。</p>
-<h2 id="编译方法"><a href="#编译方法" class="headerlink" title="编译方法"></a>编译方法</h2><p>如果希望方便一点，可以在系统的环境变量里配置一下，编译器和连接器都在安装目录下 <code>bin\</code> 文件夹下。</p>
-<p>具体的配置流程：</p>
-<ul>
-<li>右击此电脑 —— 属性 —— 高级系统设置 —— 环境变量</li>
-<li>在系统变量那一栏找到 Path 点击编辑，Windows10 和之前的都不一样了，可以点右边一排按钮的新建，在最底下把路径加进去(D:\masm32\bin)</li>
-</ul>
-<p>这样一来，可以直接打开编译器程序了。</p>
-<p>进入汇编源程序的目录，比如 D:\assembly</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd D:\assembly</span><br><span class="line">&gt; ml \c first.asm</span><br></pre></td></tr></table></figure>
-<p>然后就会在目录下生成一个.obj文件，然后用链接器链接这个文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; link16 first.obj</span><br></pre></td></tr></table></figure>
-<p>然后它会让你输入 Run File、List File、Libraries、Definitions File 可以直接按回车使用默认就行了。</p>
-<p>然后目录下就会出现 first.exe 这个可执行文件了。</p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>这是一个 32 位编译的程序，直接在 64 位的 Windows10 （我的系统）上是跑不起来的，所以可以继续用到 DosBox 这个神器，在使用的时候要先把你刚才编译文件的目录挂载为一个盘，我把它挂载为 D:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; mount d d:\</span><br><span class="line">&gt; d:</span><br></pre></td></tr></table></figure>
-<p>这样就可以进入刚才编译好可执行程序的那个目录下运行了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cd ASSEMBLY</span><br><span class="line">&gt; first</span><br></pre></td></tr></table></figure>
-<p>大功告成~</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/23/汇编语言学习笔记2/" itemprop="url">
-                  汇编语言学习笔记（2）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-23T11:32:58+08:00" content="2016-07-23">
-              2016-07-23
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/23/汇编语言学习笔记2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/汇编语言学习笔记2/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>第三章主要讲了四大块内容</p>
-<ul>
-<li>把数据从寄存器写到内存或者从内存写到寄存器</li>
-<li>一个字该如何传送</li>
-<li>数据段的概念</li>
-<li>栈</li>
-</ul>
-<p>CPU如果要读写一段内存，那么必须要给出这段内存的地址，8086CPU的地址总线有20位，但是它本身却是一个16位的CPU，所以不可能一口气给出一个20位的地址出来，所以必须通过两个16位的地址来计算出一个20位的地址来输送到20位的地址总线，计算的方式是 <em>段地址 x 16 + 偏移地址</em> 所以一般来说，你要访问一块内存，需要给一个叫 DS 的寄存器赋值，这个寄存器里的值是你要访问的这段内存的段地址，比如要把内存地址为 10000H 的内容拿出来，保存到寄存器 AL (AX 寄存器的低8位寄存器) 里，就可以这么写。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H ;段地址</span><br><span class="line">mov ds, bx</span><br><span class="line">mov al, [0] ;偏移量为0，计算出内存地址为 10000H</span><br></pre></td></tr></table></figure>
-<p>当执行到 <code>mov al, [0]</code> 这行代码的时候，CPU就知道这是在取某块内存的值，CPU就会跑到 DS 寄存器中去拿段地址，然后根据这个偏移量合成真实的物理地址，取值，赋值。</p>
-<p>当然也可以把寄存器里的值丢到内存中去，如果是这样的话，可以这么写 <code>mov [0], al</code></p>
-<h2 id="关于字"><a href="#关于字" class="headerlink" title="关于字"></a>关于字</h2><p>一个字就是两个字节，也就是16个位，像 AX 这样的寄存器，本身就是16位的，本身就可以保存一个字的大小，为了兼容之前的8位CPU，所以才会有 AH AL 这样的高位低位寄存器。在内存中，一个字就占用两个内存单元，因为一个内存单元只能保存一个字节，两个字节才能当做一个字，所以会占两个单元。在内存中保存时，会有高低位之分，高位的部分会存在高地址单元，低位的部分会存在低地址单元，如果把一段内存看做是一个从左往右的方格的话，左边是低地址单元，右边这个是高地址单元。如果看成从上往下的话，上面这个单元就是低地址单元，下面才是高地址单元。</p>
-<p>比如,把十进制的 20000(4e20) 放进内存的话，在内存中就会这样存放：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|-------------------------|</span><br><span class="line">|       0    |    1       |</span><br><span class="line">|------------|------------|</span><br><span class="line">|       20   |    4e      |</span><br><span class="line">|-------------------------|</span><br></pre></td></tr></table></figure>
-<p>内存单元0是低地址单元，所以存放低位的20，内存单元1是高地址单元锁存存放高位的4e。</p>
-<p>将地址为 N 的字单元简称为 N 地址单元，比如刚才这个单元，由 0、1两个内存单元组成，这个字单元的起始地址是0，就可以叫做 0地址单元。</p>
-<h2 id="如何存取一个字"><a href="#如何存取一个字" class="headerlink" title="如何存取一个字"></a>如何存取一个字</h2><p>其实很简单，那刚才的代码为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H</span><br><span class="line">mov ds, bx</span><br><span class="line">mov al, [0]</span><br></pre></td></tr></table></figure>
-<p>最后一行 <code>mov al, [0]</code> 可以看到这是 AX 寄存器的低位寄存器，只要把 AL 换成 AX CPU 就知道你要传输的是一个字的数据了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H</span><br><span class="line">mov ds, bx</span><br><span class="line">mov ax, [0]</span><br></pre></td></tr></table></figure>
-<h2 id="数据段"><a href="#数据段" class="headerlink" title="数据段"></a>数据段</h2><p>我们可以把一组内存单元定义成一个段来使用，这个段的地址必须是连续的，不然不可能是一个段，而且它的起始地址肯定是 16 的倍数，由于一个段的偏移量最小为0，最大为 ffff （16位），所以它的最大长度只能是 64KB。</p>
-<p>数据段只是在编程时候的一种安排，CPU并不知道这一点，其实在使用数据段的时候就和刚才访问内存一样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 123BH</span><br><span class="line">mov ds, ax</span><br><span class="line">moc ax, 0</span><br><span class="line">add ax, [0]</span><br><span class="line">add ax, [2]</span><br><span class="line">add ax, [4]</span><br></pre></td></tr></table></figure>
-<p>上面的代码是把 123b0 ~ 123b4 这段内存中的值累加到寄存器 AX 中。需要注意的是，不能直接把值赋给 DS 寄存器，就像这样 <code>mov ds, 123BH</code>，这样是非法的，只能用一个寄存器来做中转。</p>
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈本身就是一个先进后出的数据结构，在学数据结构的时候就已经了解它了。CPU也提供这种机制，CPU提供了 <code>PUSH</code> <code>POP</code> 这两个指令来把一段内存当做栈使用，CPU 是怎么知道你执行 <code>PUSH</code> <code>POP</code> 是把哪一段内存当做栈呢？在使用栈的时候，肯定需要一个指向栈顶的指针，这个指针在哪里？在 CPU 内部有一个寄存器 SS 和一个偏移寄存器 SP，这俩寄存器合成的物理地址指向栈顶。通常在 SS 寄存器中保存你要当做栈的那段地址的段地址，SP 中则保存偏移地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 1000H</span><br><span class="line">mov ss, ax</span><br><span class="line">mov sp, 0010H ; *</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">push ds</span><br></pre></td></tr></table></figure>
-<p>这段代码可以把 AX BX DS 中的值分别压栈到 段为1000H 的内存中。注释中有 * 的这行代码有必要解释下，一般情况下，一个空栈的栈顶指针指向栈内最后一个单元的下面一个，实际上栈的入栈和出栈都是以字为单位的，所以每一次 <code>PUSH</code> <code>POP</code> 的时候 SP 实际上是 <code>SP = SP + 2</code> OR <code>SP = SP - 2</code>。假设我们把 10000 ~ 1000F 这段内存当栈来使用，当这个栈只剩一个元素的时候，SP 指向的是 1000E 这里，那么要把栈清空，就必须把当前这个元素出栈，那么执行 <code>POP</code> 之后， <code>SP = SP + 2</code> 1000E + 2 等于 10010，所以当栈为空栈的时候，一定不是指向最后一个单元，而是指向最后一个单元下面的一个单元。</p>
-<p>要注意的是，8086CPU 不会检查栈顶超界，所以需要我们自己注意。</p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/14/每日一算法（第五天）/" itemprop="url">
-                  算法笔记（五）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-14T18:22:26+08:00" content="2016-07-14">
-              2016-07-14
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/14/每日一算法（第五天）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/14/每日一算法（第五天）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈是一种先进后出的数据结构，很简单就不细说了。今天是用栈来实现判断是否是回文串的算法。思路是这样的，把字符串的一半压栈，然后出栈一个字符和另一半的第一个字符对比，如果一样，就把栈指针减一，否则跳出循环。如果最终栈指针为0，则它是回文串，否则不是。</p>
-<p>Swift 版实现：</p>
-<p>我自己写了一个精简修改版的栈，这里为了让栈指针在比对后减一，所以在出栈的方法中没有让它减一。</p>
-<p>首先是栈的实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct Stack &lt;T&gt; &#123;</span><br><span class="line">    var data = [T]()</span><br><span class="line">    var top = 0</span><br><span class="line">    mutating func push(value value: T)&#123;</span><br><span class="line">        data.append(value)</span><br><span class="line">        top += 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func pop() -&gt; T &#123;</span><br><span class="line">        return data.removeLast()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实现了一个支持泛型的栈，Just for fun ^_^</p>
-<p>Swift 的 <code>String</code> 类型有一个坑爹的地方，就是不能通过下标来获取某一个字符，还有，它没有 <code>length</code> 属性，所以我先写了一个扩展来让它具备这样的功能，方便一会写算法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">extension String &#123;</span><br><span class="line">    subscript(range: Range&lt;Int&gt;) -&gt; String &#123;</span><br><span class="line">        get&#123;</span><br><span class="line">            let startIndex = self.startIndex.advancedBy(range.startIndex)</span><br><span class="line">            let endIndex = self.startIndex.advancedBy(range.endIndex)</span><br><span class="line">            return self[startIndex..&lt;endIndex]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    subscript(index: Int) -&gt; String &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            let startIndex = self.startIndex.advancedBy(index)</span><br><span class="line">            let endIndex = self.startIndex.advancedBy(index + 1)</span><br><span class="line">            return self[startIndex ..&lt; endIndex]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var length: Int &#123; return (self as NSString).length &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在 <code>String</code> 已经可以实现通过下标的方式来取一个字符串，和通过一段范围来截取一段字符串了。</p>
-<p>示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let str = &quot;abcdef&quot;</span><br><span class="line">str[1] // b</span><br><span class="line">str[1..&lt;3] //bc</span><br><span class="line">str[1...3] //bcd</span><br></pre></td></tr></table></figure>
-<p>算法很简单</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">func isPalindromic() &#123;</span><br><span class="line">    let str = &quot;ahaha&quot;</span><br><span class="line">    let mid = str.length / 2 - 1</span><br><span class="line">    var stack = Stack&lt;String&gt;()</span><br><span class="line">    var next = 0</span><br><span class="line">    </span><br><span class="line">    for index in 0...mid &#123;</span><br><span class="line">        stack.push(value: str[index])</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (str.length % 2 == 0) &#123;</span><br><span class="line">        next = mid + 1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        next = mid + 2</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for index in next...str.length - 1 &#123;</span><br><span class="line">        if (stack.pop() != str[index]) &#123;</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">        stack.top -= 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (stack.top == 0) &#123;</span><br><span class="line">        print(&quot;是回文串&quot;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        print(&quot;不是回文串&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/13/每日一算法（第四天）/" itemprop="url">
-                  算法笔记（四）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-13T17:39:02+08:00" content="2016-07-13">
-              2016-07-13
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/13/每日一算法（第四天）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/13/每日一算法（第四天）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>今天不纯是算法，还有数据结构。</p>
-<p>如果别人问你要一个QQ号，你不想直接给他，你告诉他一个加密的序列（比如: <code>6, 3, 1, 7, 5, 8, 9, 2, 0</code>），然后告诉他将第<code>1</code>个元素删除，把第<code>2</code>个元素移动到序列的末尾，然后把第<code>3</code>个元素删除，把第<code>4</code>个元素移动到序列的末尾，直到遇到最后一个元素，把它也删除，然后把这些删除的元素连在一起就是你要的QQ号。</p>
-<p>这样的需求你应该怎么做？按照死办法，就是初始化一个数组，初始化的元素就是上面的那些元素，然后开始删除第一个元素，怎么删？把第一个元素之后的所有元素的下标统统往前减一，那么这么做就非常费时了，如果用队列来做就会快许多。</p>
-<p>队列的实现就需要一个<code>head</code>、和一个<code>tail</code>两个变量来表示队列的首元素和末元素的下标，当需要删除一个元素时，只需要把<code>head++</code>即可，对于 <code>tail</code> 元素，要让它等于<code>末元素下标+1</code>，因为我们不想到最后让 <code>head == tail</code> 时队列中还剩下一个元素，我们判断队列为空的时才希望让<code>head == tail</code>。如果需要在末尾追加一个元素就只要让数组<code>tail</code>下标的那块区域添加上要追加的那个元素，然后把<code>tail++</code>，这样不管是删除还是追加的时间复杂度均为O(1)，效率非常高，但是浪费了一些空间，这就叫用空间换时间，上帝是不会让你十全十美的。</p>
-<p>Swift 版实现:</p>
-<p>首先创建一个结构体来表示一个队列</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct Queue &#123;</span><br><span class="line">    var data: [Int]</span><br><span class="line">    var head: Int</span><br><span class="line">    var tail: Int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后是具体的算法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">func jailbrokenQQ() &#123;</span><br><span class="line">	//为了保证有足够的空间来换来换去这些元素，就预留了100个位置</span><br><span class="line">    var queue = Queue(data: [Int](count: 100, repeatedValue: 0), head: 0, tail: 0)</span><br><span class="line">    var data = [6, 3, 1, 7, 5, 8, 9, 2, 0]</span><br><span class="line">    </span><br><span class="line">    //把加密的QQ号码丢进队列里</span><br><span class="line">    for index in 0...data.count - 1 &#123;</span><br><span class="line">        queue.data[index] = data[index]</span><br><span class="line">        queue.tail += 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //根据解密的逻辑开始解密</span><br><span class="line">    while queue.head &lt; queue.tail &#123;</span><br><span class="line">        print(queue.data[queue.head])</span><br><span class="line">        queue.head += 1</span><br><span class="line">        queue.data[queue.tail] = queue.data[queue.head]</span><br><span class="line">        queue.tail += 1</span><br><span class="line">        queue.head += 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用合适的数据结构来实现同一个算法，会让效率大大增加。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/12/每日一算法（第三天）/" itemprop="url">
-                  算法笔记（三）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-12T16:40:41+08:00" content="2016-07-12">
-              2016-07-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/12/每日一算法（第三天）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/12/每日一算法（第三天）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>这是一个比昨天的冒泡排序快一点的排序算法，它的思路是这样的：在一个无序的序列中随便寻找一个基准值，一般选择序列的第一个元素，根据这个基准值，把基准值左边比基准值大的统统移到它的右边，把它的右边比它小的统统移到左边，那么这样一来，基准值的左边都是比它小的，右边呢都是比它大的。这样子的一轮就称他为基准值归位（因为一轮完毕以后基准值肯定是在中间），一轮完毕后基准值就把这一串序列分为了左右两串子序列，对于左右两串子序列，我们还可以继续找基准值，继续让大的移右边，小的移左边，所有基准归位完毕后，这串序列就排序完成了。</p>
-<p>至于怎么把小于基准的值移左边，大于基准的值移右边，我们可以采用交换的方法，使用两个指针分别指向序列中第一个元素和最后一个元素，然后让两个指针相向移动，<em>但是必须让尾指针先移动，因为基准是第一个元素</em>，尾指针（指向最后一个元素）遇到比基准<code>小</code>的元素就暂时停止移动，等到头指针遇到了一个比基准<code>大</code>的元素，也暂时停止移动，让两个指针指向的元素互换，然后继续移动，继续和上面说明的操作步骤一样进行，当头尾指针相遇时，就说明一轮已经结束了（第一个序列的基准已经归位），然后继续递归做后续序列基准的归位。</p>
-<p>Swift 实现（这个算法比较复杂，所以注释特别多）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">var array = [6,1,2,7,9,3,4,5,10,8]</span><br><span class="line"></span><br><span class="line">func quickSort(left left: Int, right: Int)&#123;</span><br><span class="line">    </span><br><span class="line">    //如果 left 大于 right 说明排序已经完成，递归结束</span><br><span class="line">    if (left &gt; right) &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var i = left //指向第一个元素</span><br><span class="line">    var j = right //指向第二个元素</span><br><span class="line">    let temp = array[left] //存放基准数</span><br><span class="line">    var t = 0 //交换时临时存放</span><br><span class="line">    </span><br><span class="line">    //i 不等于 j 说明这两个指针还没有碰头</span><br><span class="line">    while i != j &#123;</span><br><span class="line">        </span><br><span class="line">        //如果基准数右边的数大于基准数，就说明符合要求，不需要交换，所以指针继续往前面移动，i 如果大于 j 说明已经碰头了</span><br><span class="line">        while array[j] &gt;= temp &amp;&amp; i &lt; j  &#123;</span><br><span class="line">            j -= 1</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //如果基准数左边的数小于基准数，就说明符合要求，不需要交换。所以指针继续往后面移动，.....</span><br><span class="line">        while array[i] &lt;= temp &amp;&amp; i &lt; j &#123;</span><br><span class="line">            i += 1</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //前面的搜索都找到了不符合要求（即基准右边小于基准，基准左边大于基准），并且 i 和 j 没有碰头，就开始交换 i 和 j 所指向的两个元素</span><br><span class="line">        if (i &lt; j) &#123;</span><br><span class="line">            t = array[i]</span><br><span class="line">            array[i] = array[j]</span><br><span class="line">            array[j] = t</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //出了大的 while 循环，肯定就代表 i == j，意味着碰头了，那么一轮匹配就结束了</span><br><span class="line">    array[left] = array[i]</span><br><span class="line">    array[i] = temp</span><br><span class="line">    </span><br><span class="line">    //继续把上一个基准分割的两个序列和刚才一样操作，所以就要用递归来搞定</span><br><span class="line">    </span><br><span class="line">    //对于左边的子序列，头指针肯定还是left，也就是第0个元素的位置，尾指针则是刚才基准数那个位置的前面一个位置</span><br><span class="line">    quickSort(left: left, right: i - 1)</span><br><span class="line">    </span><br><span class="line">    //对于右边的子序列，头指针是刚才基准数那个位置的后面一个位置，而尾指针肯定还是right，也就是最后一个元素的位置</span><br><span class="line">    quickSort(left: i + 1, right: right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">quickSort(left: 0, right: array.count - 1)</span><br><span class="line"></span><br><span class="line">print(array)</span><br></pre></td></tr></table></figure>
-<p>快速排序的平均时间复杂度为 O(NlogN)，在最差的情况下和冒泡一样达到 O(N^2)，但还是比冒泡好多了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/11/每日一算法（第二天）/" itemprop="url">
-                  算法笔记（二）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T17:43:12+08:00" content="2016-07-11">
-              2016-07-11
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/11/每日一算法（第二天）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/11/每日一算法（第二天）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="冒泡算法"><a href="#冒泡算法" class="headerlink" title="冒泡算法"></a>冒泡算法</h2><p>冒泡算法的思路是这样的，如果有 n 个元素，就循环 n-1 遍，每一遍都会比较相邻的两个元素的小大（根据从小到大或从大到小的需求来比较大小）可以根据需求，大的和小的（或小的和大的）调换位置，也是非常简单的算法。</p>
-<p>Swift 版实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func bubble()&#123;</span><br><span class="line">    </span><br><span class="line">    var array = [10,3,1,4,4,0,2]</span><br><span class="line">    </span><br><span class="line">    for _ in 1..&lt;array.count &#123;</span><br><span class="line">        for index in 0..&lt;array.count - 1 &#123;</span><br><span class="line">            if(array[index] &gt; array[index + 1]) &#123;</span><br><span class="line">                let t = array[index]</span><br><span class="line">                array[index] = array[index + 1]</span><br><span class="line">                array[index + 1] = t</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    print(array)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个算法的缺点是太慢，时间复杂度为 O(n^2)</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/10/每日一算法（第一天）/" itemprop="url">
-                  算法笔记（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-10T18:33:04+08:00" content="2016-07-10">
-              2016-07-10
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/10/每日一算法（第一天）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/10/每日一算法（第一天）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>这是一个非常简单的排序算法，思路是这样的，比如你有一堆的数需要排序，那么首先必须确认这些数的范围，比如[0,10]，那么你就需要11个变量来保存这些数出现的次数，为什么需要11个变量呢？因为在上述的范围中最大值只能是10，最小值只能是0，那你正好就需要11个变量（一个长度为11的数组）下标依次从<code>a[0] -&gt; a[10]</code>。比方这样一堆数：5 8 3 2 1 1 5 ，在这样一堆数中：5 和 1 出现了两次，其余的数各出现一次。刚才声明的那一个长度为11的数组可以想象成是一个个桶，在这些桶里保存的都是这个桶下标那个数所出现的次数，比如 5 出现了两次，那么在元素<code>a[5] = 2</code>，1也出现了两次 <code>a[1] = 2</code>，8 出现了一次，那么 <code>a[8] = 1</code>，最后把每一个元素不为0的下标输出，即为排序过后的顺序。</p>
-<p>Swift 版实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">func barrel()&#123;</span><br><span class="line">    </span><br><span class="line">    var input = [10,5,20,3,1,5,2,8] //乱序的数</span><br><span class="line">    var t = 0;</span><br><span class="line">    var a = [Int]() //桶</span><br><span class="line">	</span><br><span class="line">	//桶里每一个元素置0</span><br><span class="line">    for _ in 0...21 &#123;</span><br><span class="line">        a.append(0)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //遍历乱序的元素，元素出现一次就丢进桶里并计数</span><br><span class="line">    for i in 0...input.count - 1 &#123;</span><br><span class="line">        t = input[i]</span><br><span class="line">        a[t] += 1</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //输出</span><br><span class="line">    for index in 0...a.count - 1 &#123;</span><br><span class="line">        let count = a[index]</span><br><span class="line">        if count == 0 &#123;continue&#125;</span><br><span class="line">        for _ in 1...count &#123;</span><br><span class="line">            print(index)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个算法的缺点在于，如果乱序的元素范围够大，那么你就需要更多的变量（桶）来存放元素出现的顺序，这对空间非常浪费，而且如果要排序的元素是小数，那就更头疼了，但如果范围不大，这个算法的时间复杂度非常快  <code>O(M+N)</code>。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/28/汇编语言学习笔记-1/" itemprop="url">
-                  汇编语言学习笔记(1)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-28T11:37:35+08:00" content="2016-06-28">
-              2016-06-28
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/28/汇编语言学习笔记-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/28/汇编语言学习笔记-1/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="关于书"><a href="#关于书" class="headerlink" title="关于书"></a>关于书</h1><p>为了深入学习计算机底层，开始学习汇编。这是第一篇学习笔记，书是 王爽的《汇编语言》，这本书虽然是国人写的，但是不是一本一板一眼的书，对于很多名词和概念他不会一口气讲完，而是会在每一个知识点中慢慢渗透的讲解，书后面还有习题帮助你理解，我个人认为非常好，非常适合自学五星好评。</p>
-<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>所有的16进制如果一眼能看出来是16进制的，比如 005c 那就不加 H， 如果看不出的 8226 那就加一个H 8226h 或者 8226H，大小写看心情。</p>
-<p>以下的文章只是学习笔记，非教程，是以我能看懂温习为主。</p>
-<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><p>一个典型的CPU是由运算器、控制器、寄存器等组成，这些器件靠内部总线来传递数据。</p>
-<p>不同的CPU寄存器数量、结构不同，8086有14个寄存器，AX BX CX DX SI DI SP BP IP CS SS DS ES PSW。</p>
-<p>其中 AX BX CX DX 是通用寄存器，用来存放一般性的数据。</p>
-<p>为了兼容上一代CPU（8位的寄存器，而8086是16位的）上述四个通用寄存器可以分为两个独立使用的8位寄存器来用</p>
-<ul>
-<li>AX -&gt; AH AL</li>
-<li>BX -&gt; BH BL</li>
-<li>CX -&gt; CH CL</li>
-<li>DX -&gt; DH DL</li>
-</ul>
-<p>把一个16位的寄存器想象成一个16个格子的格子间，从格子间最右边开始的第一个格子的序号为0，最左边的最后一个格子序号为15。0~7称为 <em>低8位</em> 8~15称为 <em>高8位</em>。</p>
-<p>独立的两个8位寄存器（类似 AH AL） 被命名为 某H 的是存储高位的寄存器，某L 的是存储地位的寄存器。</p>
-<h1 id="字在寄存器中的存储"><a href="#字在寄存器中的存储" class="headerlink" title="字在寄存器中的存储"></a>字在寄存器中的存储</h1><p>一个字（word）由两个字节组成，这两个字分别为这个字的高位字节和地位字节。</p>
-<p>比如十进制数 20000，它的二进制为 0100111000100000, 他就可以保存在一个16位的AX寄存器中，AH保存了它的高8位，AL则保存了他低8位。</p>
-<ul>
-<li>AH -&gt; 01001110 B = 78 = 4E H</li>
-<li>AL -&gt; 00100000 B = 32 = 20 H</li>
-</ul>
-<p>有趣的是，如果把 AH 和 AL 的16进制值拼起来就等于 4E20 恰好等于 20000 的16进制值，这就是16进制表示的好处。</p>
-<h1 id="几条汇编指令"><a href="#几条汇编指令" class="headerlink" title="几条汇编指令"></a>几条汇编指令</h1><ul>
-<li><code>mov ax,18</code> 把 18 送入寄存器ax</li>
-<li><code>add ax,8</code> 在 AX 寄存器原来的值上加 8</li>
-<li><code>mov ax,bx</code> 把 BX 寄存器的值送入AX寄存器</li>
-<li><code>add ax,bx</code> AX寄存器原来的值加上BX寄存器的值，结果保存在AX中</li>
-</ul>
-<p>假设 AX = 8226 H ，BX = 8226 H, 如果执行 <code>add ax,bx</code> 即 8226h + 8226h 的值赋给 AX 寄存器，计算下，它们相加的结果为 1044C，转换成二进制是：<code>10000010000111111</code> 17位，所以装不下，要去掉最高位的1，所以最终保存在寄存器 AX 中的值为 044C。</p>
-<p>假设 AX = 00c5 BX = 4026h 执行 <code>add al,93H</code>, 也就是说在 AX 寄存器的低8位即 c5 + 93h = 158h , 但是 AX 的低8位寄存器 AL 只能存8位二进制值也就是2位16进制值，所以必须舍弃最高位的1，于是 AL 保存的值为 58h 所以 AX寄存器的值也就成了 AH的值 和 AL的值 拼在一起的值 0058h。</p>
-<p><em>注意事项：当使用 <code>mov</code> 或者 <code>add</code> 等指令时，要注意两个操作对象位数是否一致，比如 ax 不能和 bl 放在一起</em></p>
-<h1 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h1><p>CPU 访问内存单元的时候，需要告诉内存要访问的这个单元的地址是多少，CPU是通过地址总线来把物理地址送入内存的。</p>
-<p>8086 CPU 是16位的，这个16位代表：</p>
-<ul>
-<li>运算器一次可以运算16位的数据</li>
-<li>寄存器最大的宽度也是16</li>
-<li>寄存器和运算器之间的通路也是16</li>
-</ul>
-<p>综上，在CPU的内部，能够一次性处理、传输和存储的数据只能是16位，那么 CPU 需要通过地址总线把要访问的内存单元的地址输入给内存，然而8086实际上地址总线的宽度是20，也就是说一次可以支持传输20位的数据，换算一下它支持的寻址最大为2的20次方，即1MB左右，这时问题来了，16位的 CPU 和 20位的 地址总线，怎么看都浪费地址总线的宽度了，所以这时CPU就需要来合成一个20位的地址来输出。</p>
-<h1 id="合成物理地址"><a href="#合成物理地址" class="headerlink" title="合成物理地址"></a>合成物理地址</h1><p>由于16位的CPU一次性写不下20位的数据，于是就只能用两个16位的地址，通过某个方法来合成一个20位的地址。</p>
-<p>首先，我们把两个16位的地址分别称为段地址和偏移地址，计算方式是</p>
-<p><em>物理地址 = 段地址 </em> 16 + 偏移地址*</p>
-<p>比如 段地址为：1230h 偏移地址为 00c8，则物理地址等于</p>
-<p>1230h * 16 + 00c8 = 123c8</p>
-<h1 id="寄存器-CS-和-IP"><a href="#寄存器-CS-和-IP" class="headerlink" title="寄存器 CS 和 IP"></a>寄存器 CS 和 IP</h1><p>CS 和 IP 是 8086 最关键的两个寄存器，他们指示了当前CPU要读取指令的地址， CS 为代码段寄存器（存放了段地址）， IP 指令指正寄存器（存放了偏移地址）。</p>
-<p>CPU 合成物理地址的原理是这样的：</p>
-<p>首先 CS 和 IP 两个寄存器保存了两个16位物理地址，这两个地址将被送入地址加法器，通过上述的公式计算出物理地址，然后把物理地址送入输入输出控制电路，然后被送到地址总线，由地址总线把物理地址送入内存。具体的流程在书P26。</p>
-<p>为了修改CPU要执行的指令，我们可以修改 CS 和 IP 寄存器</p>
-<p><code>JMP 2AE3:3 这个指令表示修改段地址(CS)为2AE3，偏移地址为3h，CPU将会从2AE33处取指令</code></p>
-<p>或者你不想修改段地址，只是修改偏移地址，你可以这样</p>
-<p><code>JMP AX 表示把寄存器 AX 的值作为IP寄存器（偏移地址）的值</code></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -1538,6 +520,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/02/手把手带你撸一个-YYModel-的精简版/"
+           data-title="手把手带你撸一个 YYModel 的精简版" data-url="http://yoursite.com/2016/09/02/手把手带你撸一个-YYModel-的精简版/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1557,8 +547,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -1628,6 +627,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从JSON映射到Model的原理"><span class="nav-number">1.</span> <span class="nav-text">从JSON映射到Model的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前期的准备工作"><span class="nav-number">2.</span> <span class="nav-text">前期的准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装-ivar"><span class="nav-number">2.1.</span> <span class="nav-text">封装 ivar</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个强大的枚举"><span class="nav-number">2.1.1.</span> <span class="nav-text">一个强大的枚举</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装Method"><span class="nav-number">2.2.</span> <span class="nav-text">封装Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Objective-C-的-Optional"><span class="nav-number">2.2.1.</span> <span class="nav-text">Objective-C 的 Optional</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装-Property"><span class="nav-number">2.3.</span> <span class="nav-text">封装 Property</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装-Class"><span class="nav-number">2.4.</span> <span class="nav-text">封装 Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继续封装"><span class="nav-number">2.5.</span> <span class="nav-text">继续封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPModelPropertyMeta"><span class="nav-number">2.5.1.</span> <span class="nav-text">CPModelPropertyMeta</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPModelPropertyMeta-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">CPModelPropertyMeta</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从-JSON-到-Model-的转换"><span class="nav-number">3.</span> <span class="nav-text">从 JSON 到 Model 的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">4.</span> <span class="nav-text">结尾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码"><span class="nav-number">4.0.1.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1724,6 +734,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
