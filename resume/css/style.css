@@ -1,0 +1,34 @@
+.style_main {
+	width: 90%;
+	height: auto;
+	margin: 10px auto;
+	border-left: solid 2px #FF6347;
+	padding-left: 15px;
+	font-size: 14px;
+	color: #666666;
+}
+.style_format {
+	padding-left: 40px;
+}
+.style_desc{
+	font-family: '微软雅黑';
+	font-size: 15px; 
+	/*color: #FF6347;*/
+}
+hr {
+	width: 90%;
+	border: solid 1px #f0f0f0;
+}
+li {
+	margin: 13px;
+}
+img {
+	margin: 5px;
+}
+a {
+	text-decoration: none;
+	color: #888888;
+}
+a:hover {
+	text-decoration: underline;
+}
