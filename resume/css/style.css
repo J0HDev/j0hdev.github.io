@@ -20,14 +20,14 @@ hr {
 	border: solid 1px #f0f0f0;
 }
 li {
-	margin: 13px;
+	margin: 5px;
 }
 img {
 	margin: 5px;
 }
 a {
 	text-decoration: none;
-	color: #888888;
+	color: #FF6347;
 }
 a:hover {
 	text-decoration: underline;
