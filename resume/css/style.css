@@ -7,16 +7,16 @@
 	margin: 10px auto;
 	border-left: solid 2px #FF6347;
 	padding-left: 15px;
-	font-size: 14px;
+	font-size: 13px;
 	color: #666666;
 }
 .style_format {
 	padding-left: 40px;
-	font-size: 15px;
+	font-size: 13px;
 }
 .style_desc{
 	font-family: '微软雅黑';
-	font-size: 15px; 
+	font-size: 14px; 
 	/*color: #FF6347;*/
 }
 hr {
